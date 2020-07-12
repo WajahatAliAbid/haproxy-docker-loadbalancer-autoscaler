@@ -1,8 +1,8 @@
 import os
 import socket
-from flask import Flask, request, jsonify
+from flask import Flask, jsonify
 app = Flask(__name__)
-port_key = 'HTTP_PORT'
+port_key = 'FLASK_PORT'
 
 
 @app.route('/', methods=['GET'])

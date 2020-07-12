@@ -196,6 +196,7 @@ def create_server(name, host):
     return server
 ```
 This script will read the current HA Proxy configuration, update the server entries according to currently running contianers for the image `ha-python`, update the configuration and restart the service for changes to take effect.
+
 5. ### Testing
 Run the `monitor.py` using 
 ```python

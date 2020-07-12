@@ -17,22 +17,22 @@ def create_server(name, host):
     return server
 
 def set_containers(containers):
-    ## Read the current configuration and parse it
+    # Read the current configuration and parse it
     parser = Parser(CONFIG_PATH)
     configuration = parser.build_configuration()
     backend = configuration.backend(BACKEND_NAME)
 
-    ## remove all current servers from backend configuration
+    # Remove all current servers from backend configuration
     configured_servers = backend.servers()
     for server in configured_servers:
         backend.remove_server(server.name)
 
-    ## add servers according to the running docker containers
+    # Add servers according to the running docker containers
     for container in containers:
         server = create_server(name=container['id'], host=container['ip'])
         backend.add_server(server)
 
-    ## update the ha proxy configuration
+    # Update the ha proxy configuration
     config_render = Render(configuration)
     config_render.dumps_to(CONFIG_PATH)
 

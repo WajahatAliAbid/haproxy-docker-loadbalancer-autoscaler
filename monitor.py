@@ -4,19 +4,22 @@ from container_helper import ContainerHelper
 DELAY_SECONDS = 3
 PRIORITY = 1
 scheduler = sched.scheduler(time.time, time.sleep)
-docker = ContainerHelper()
+container_helper = ContainerHelper()
 
+# schedules a new event
 def schedule_event():
     print(f'scheduling monitoring after {DELAY_SECONDS} seconds')
     scheduler.enter(delay=DELAY_SECONDS, priority=PRIORITY, action=monitor_usage)
 
-
+# monitors cpu usage and updates containers
 def monitor_usage():
     cpu_usage = psutil.cpu_percent()
     print(f'CPU usage is {cpu_usage}')
     number_of_containers = 1 if cpu_usage < 10 else int(cpu_usage/10)
     print(f'setting docker container count to {number_of_containers}')
-    containers = docker.set_container_count(number_of_containers)
+    # set the container count to desired number of containers
+    container_helper.set_container_count(number_of_containers)
+    # schedule another event after this event completes
     schedule_event()
 try:
     schedule_event()
@@ -26,4 +29,4 @@ except KeyboardInterrupt:
     pass
 finally:
     print('stopping running containers')
-    docker.stop()
+    container_helper.stop()

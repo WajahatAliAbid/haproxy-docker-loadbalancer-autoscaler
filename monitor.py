@@ -1,7 +1,7 @@
 import psutil, sched, time
 from container_helper import ContainerHelper
 
-DELAY_SECONDS = 3
+DELAY_SECONDS = 10
 PRIORITY = 1
 scheduler = sched.scheduler(time.time, time.sleep)
 container_helper = ContainerHelper()

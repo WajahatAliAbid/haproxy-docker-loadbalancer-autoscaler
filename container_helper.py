@@ -6,7 +6,7 @@ IMAGE_NAME = 'ha-python'
 
 def get_slim_container_object(container):
         return {'id': container.attrs['Id'], 'ip': container.attrs['NetworkSettings']['IPAddress']}
-class ApiDocker:
+class ContainerHelper:
     def __init__(self):
         super().__init__()
         self.client = docker.from_env()
@@ -44,7 +44,7 @@ class ApiDocker:
         self.set_container_count(0)
 
 if __name__ == "__main__":
-    api_docker = ApiDocker()
+    api_docker = ContainerHelper()
     print("setting container count to 3")
     containers = api_docker.set_container_count(3)
     print(containers)

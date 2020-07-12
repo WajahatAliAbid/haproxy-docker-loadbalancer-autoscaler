@@ -9,8 +9,7 @@ scheduler = sched.scheduler(time.time, time.sleep)
 docker = ApiDocker()
 
 def schedule_event():
-    scheduler.enter(time=DELAY_SECONDS, priority=PRIORITY,
-                    action=monitor_usage)
+    scheduler.enter(delay=DELAY_SECONDS, priority=PRIORITY, action=monitor_usage)
 
 
 def monitor_usage():
@@ -23,5 +22,5 @@ def monitor_usage():
 
 
 schedule_event()
-scheduler.run()
+# scheduler.run()
 docker.stop()

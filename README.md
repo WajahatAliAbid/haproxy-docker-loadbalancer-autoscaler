@@ -215,4 +215,5 @@ Use the [stress tool](https://pypi.org/project/stress/) to increase the CPU load
 stress -c 4
 ```
 CPU usage will immediately skyrocket and docker containers will start spawning as the monitor script observes the CPU usage increasing. This will also add entries in HAProxy config file which will result in different output when each time we open http://localhost:5000 on our system.
+
 If we stop the stress tool, CPU usage will start going down and number of containers will decrease according to the CPU usage. This will also end up removing extra entries from HAProxy config. Eventually reducing to 1, which will result in http://localhost:5000 returning a single output for the single container running at the moment. 

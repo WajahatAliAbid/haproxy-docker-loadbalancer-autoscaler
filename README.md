@@ -4,8 +4,10 @@ This repository demonstrates dockerizing a Flask API, and Load Balancing and Aut
 ## Pre Requisites
 1. ### Install Python 3.6
 You should have [Python 3.6](https://www.python.org/downloads/release/python-360/) installed on your system. Python 3.7, 3.8 or 3.9 would also work for this.
+
 2. ### Install HA Proxy
 You should have [HA Proxy](http://www.haproxy.org/) installed on your system. The version used for this demonstration however is `1.8.8-1ubuntu0.10`.
+
 3. ### Install Docker
 You should've [Docker](https://docs.docker.com/get-docker/) installed on your system. 
 
@@ -72,5 +74,7 @@ curl http://<container_id>:5000
 ```
 
 3. ### Configure HA Proxy
+
 4. ### Monitor the system
+
 5. ### Test Autoscaling

@@ -13,7 +13,7 @@ You should have [HA Proxy](http://www.haproxy.org/) installed on your system. Th
 ## Steps
 
 1. ### Build Flask API
-Build a simple [Flask API](./api.py) with its GET / method to return a simple JSON Object running on port 5000.
+Build a simple [Flask API](./api/api.py) running on port 5000. Having a GET / method  which will return a simple JSON Object with host name of the system.
 ```python
 @app.route('/', methods=['GET'])
 def get():

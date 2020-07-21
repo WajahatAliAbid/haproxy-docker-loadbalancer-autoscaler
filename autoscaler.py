@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import psutil, sched, time
 from container_helper import ContainerHelper
 

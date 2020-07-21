@@ -7,7 +7,7 @@ port_key = 'FLASK_PORT'
 
 @app.route('/', methods=['GET'])
 def get():
-    return jsonify(hostname='{}, Wajahat Ali Abid'.format(socket.gethostname()))
+    return jsonify(host=socket.gethostname(),message='Hello')
 
 if __name__ == '__main__':
     http_port = os.getenv(port_key,5000)

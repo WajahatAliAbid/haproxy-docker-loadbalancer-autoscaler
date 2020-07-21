@@ -8,5 +8,53 @@ Basic architecture of the implementation looks like this:
 ![Architecture Diagram](./res/main%20diagram.jpeg)
 
 ## Explanation of Architecture
-
+At the center of the system lies [HA Proxy](http://www.haproxy.org/) which is free, and [open source](https://github.com/haproxy/haproxy) software that provides a high availability load balancer and proxy server for TCP and HTTP-based applications that spreads requests across multiple servers. While on the right side is the auto scaler script, which is responsible for launching or destroying docker containers based on the auto scaling matrix. 
+Whenever a new docker container is launched by the script, the HA Proxy is notified about it. HA Proxy then adds this container to its load balancing group. In case a docker container is removed from the group, HA Proxy removes the container from its load balancing group.
 ## Environment Setup
+To setup this environment, you need to have following components installed on your system.
+1. HA Proxy
+2. Docker
+3. Python
+
+### Steps
+#### 1. Build Docker Image
+```bash
+docker build -t ha-python ./api
+```
+#### 2. Configure HA Proxy
+Add the following text in the ha proxy configuration file (/etc/haproxy/haproxy.cfg).
+```
+frontend flask_frontend
+    	bind 		*:80
+    	mode 		http
+    	default_backend flask_backend
+
+backend flask_backend
+    	balance 	roundrobin
+```
+#### 3. Run the autoscaler script
+Install the required dependencies by running the command
+```bash
+python3 -m pip install -r requirements.txt
+```
+Give script execution permissions
+```bash
+sudo chmod +x ./autoscaler.py
+```
+Run the script by running the command
+```bash
+./autoscaler.py
+```
+
+Open localhost in browser, and you'll be greeted with the following response
+```json
+{
+    "host": "095dd8b087c0",
+    "message": "Hello"
+}
+```
+Where `095dd8b087c0` is the hostname of the docker container. Install the [stress](https://www.cyberciti.biz/faq/stress-test-linux-unix-server-with-stress-ng/) tool and run the command to impose stress on the cpu
+```bash
+stress -c 2
+```
+This will raise the system cpu usage and now each time you open localhost, you'll see a different host in the response.
